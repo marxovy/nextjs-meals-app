@@ -4,12 +4,21 @@ import Image from "next/image";
 import classes from "./page.module.css";
 import { notFound } from "next/navigation";
 
-const MealSlugPage = ({ params }) => {
+export const generateMetadata = ({ params }) => {
   const meal = getMeal(params.slug);
 
   if (!meal) {
     notFound();
   }
+
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+};
+
+const MealSlugPage = ({ params }) => {
+  const meal = getMeal(params.slug);
 
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
 
